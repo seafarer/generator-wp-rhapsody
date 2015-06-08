@@ -4,7 +4,7 @@
   "description": "front end tasks for <%= themeNameSpace %>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/seafarer/generator-wp-rhapsody.git"
+    "url": "git://github.com/seafarer/generator-wp-cabana.git"
   },
   "devDependencies": {
     "gulp": "^3.8.10",

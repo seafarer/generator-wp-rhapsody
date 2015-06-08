@@ -150,4 +150,9 @@ wpRhapsodyTheme.prototype.app = function () {
 
   this.copy('_gulpfile.js', 'Gulpfile.js');
   this.copy('_package.json', 'package.json');
+  this.copy('_bower.json', 'bower.json');
+  this.copy('scss-lint.yml', '.scss-lint.yml');
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('jshintrc', '.jshintrc');
+  this.copy('bowerrc', '.bowerrc');
 };
