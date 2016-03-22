@@ -6,10 +6,12 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seafarer/generator-wp-rhapsody.git"
+    "url": "git+https://github.com/seafarer/generator-wp-rhapsody.git",
+    "repository": "seafarer/generator-wp-rhapsody",
   },
   "author": {
     "name": "Colin OBrien",
+    "email": "",
     "url": "https://github.com/seafarer"
   },
   "scripts": {
