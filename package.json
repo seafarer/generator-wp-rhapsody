@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seafarer/generator-wp-rhapsody.git",
-    "repository": "seafarer/generator-wp-rhapsody",
+    "repository": "seafarer/generator-wp-rhapsody"
   },
   "author": {
     "name": "Colin OBrien",

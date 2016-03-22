@@ -1,23 +1,27 @@
 /**
  * Front end tasks.
  */
+
+'use strict';
+
 var gulp          = require('gulp');
 var plumber       = require('gulp-plumber');
 var sass          = require('gulp-sass');
 var sourcemap     = require('gulp-sourcemaps');
 var autoprefixer  = require('gulp-autoprefixer');
-var livereload    = require('gulp-livereload');
 var notify        = require('gulp-notify');
-var changed       = require('gulp-changed');
 var iconfont      = require('gulp-iconfont');
 var consolidate   = require('gulp-consolidate');
 var cache         = require('gulp-cache');
 var imagemin      = require('gulp-imagemin');
+var concat        = require('gulp-concat');
+var uglify        = require('gulp-uglify');
+var browserSync   = require('browser-sync').create();
 
 // Define variables for our paths
 var paths = {
   sass: ['./sass/*.scss', './sass/**/*.scss'],
-  files: '*.php',
+  files: '**/*.php',
   js: './js/*.js',
   img: './images/*.{jpg,png,gif,svg}',
   css: './'
@@ -32,7 +36,20 @@ function errorAlert(error){
   })(error);
   console.log(error.toString());
   this.emit('end');
-};
+}
+
+// Browser Sync
+gulp.task('serve', function() {
+  browserSync.init({
+    proxy: 'one.dev'
+  });
+
+  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.img, ['img']).on('change', browserSync.reload);
+  gulp.watch(paths.files).on('change', browserSync.reload);
+  gulp.watch(paths.js).on('change', browserSync.reload);
+  gulp.watch('app/*.html').on('change', browserSync.reload);
+});
 
 // Sass Tasks
 // Set Sass and Autoprefix options here
@@ -41,17 +58,13 @@ gulp.task('sass', function() {
     .pipe(plumber({errorHandler: errorAlert}))
     .pipe(sourcemap.init({loadMaps: true}))
     .pipe(sass())
-    .on("error", notify.onError({
+    .on('error', notify.onError({
       message: 'Error: <%= error.message %>'
     }))
     .pipe(autoprefixer('> 0.25%'))
     .pipe(sourcemap.write('./maps'))
-    .pipe(gulp.dest(paths.css));
-});
-
-// Clear the gulp cache - run `gulp clear`
-gulp.task('clear', function (done) {
-  return cache.clearAll(done);
+    .pipe(gulp.dest(paths.css))
+    .pipe(browserSync.stream());
 });
 
 // Minify images and set up the folder for livereload. First run
@@ -63,16 +76,18 @@ gulp.task('img', function () {
     .pipe(gulp.dest('images/'));
 });
 
-// Watch function
-gulp.task('watch', function () {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.img, ['img']);
-  livereload.listen({basePath: './**'});
-  gulp.watch(['style.css', '*.php', 'js/*.js', 'images/*.{jpg,png,gif,svg}']).on('change', livereload.changed);
+gulp.task('js', function() {
+  return gulp.src([
+      'js/vendor/*.js',
+      'js/app.js'
+    ])
+    .pipe(concat('one.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('js'));
 });
 
 // Define default task
-gulp.task('default', ['watch']);
+gulp.task('default', ['serve']);
 
 // Create icon font from a folder of SVGs
 // Has to be run separately from default task
@@ -95,4 +110,9 @@ gulp.task('icons', function () {
         .pipe(gulp.dest('sass/elements'));
     })
     .pipe(gulp.dest('fonts/icons'));
+});
+
+// Clear the gulp cache - run `gulp clear`
+gulp.task('clear', function (done) {
+  return cache.clearAll(done);
 });
