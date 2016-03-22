@@ -1,0 +1,49 @@
+{
+  "name": "generator-wp-rhapsody",
+  "version": "0.0.0",
+  "description": "Yeoman generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seafarer/generator-wp-rhapsody.git"
+  },
+  "author": {
+    "name": "Colin OBrien",
+    "url": "https://github.com/seafarer"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "~0.13.0",
+    "chalk": "^1.0.0",
+    "yosay": "^1.0.2",
+    "simple-git": "~0.7.0",
+    "rsvp": "~3.0.6",
+    "temporary": "0.0.8",
+    "async": "~0.7.0",
+    "lodash": "^3.6.0",
+    "underscore.string": "^3.0.3",
+    "slug": "^0.9.1"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "readme": "# Wordpress Theme Generator to generate Rhapsody Theme\n\n#### a work in progress. not available on npm yet \n\nRhapsody is loosely based on underscores. This Yeoman generator will download Rhapsody, change all references to your theme name and run `npm install` for you.\n\n## Installation\n\n```npm install -g generator-wp-rhapsody```\n\n``` mkdir themename && cd themename ```\n\n``` yo wp-rhapsody ```\n\nAnd then follow the propmts.\n\n\n\n## License\n\nMIT\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/seafarer/generator-wp-rhapsody/issues"
+  },
+  "homepage": "https://github.com/seafarer/generator-wp-rhapsody#readme",
+  "_id": "generator-wp-rhapsody@0.0.0",
+  "_shasum": "dbce36ef4793629c6f6b7de60ed9d4f2947ce115",
+  "_resolved": "https://github.com/seafarer/generator-wp-rhapsody/tarball/master",
+  "_from": "https://github.com/seafarer/generator-wp-rhapsody/tarball/master"
+}
