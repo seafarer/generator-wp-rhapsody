@@ -12,7 +12,7 @@ var wpRhapsodyTheme = module.exports = function wpRhapsodyTheme(args, options, c
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+    this.runInstall('yarn');
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -95,7 +95,7 @@ function findandreplace(dir) {
     var stat = fs.statSync(file);
 
     if (stat.isFile() && (path.extname(file) === '.php' || path.extname(file) === '.scss')) {
-      self.log.info('Find and replace rhapsody in ' + chalk.yellow(file));
+      self.log.info('Find and replace rhapsody shit in ' + chalk.yellow(file));
       var data = fs.readFileSync(file, 'utf8');
       var result;
       result = data.replace(/Text Domain: rhapsody/g, "Text Domain: " + slug(self.themeNameSpace) + "");
@@ -103,8 +103,8 @@ function findandreplace(dir) {
       result = result.replace(/rhapsody_/g, slug(self.themeNameSpace) + "_");
       result = result.replace(/ rhapsody/g, " " + slug(self.themeNameSpace));
       result = result.replace(/rhapsody-/g, slug(self.themeNameSpace) + "-");
-      if (file === 'style.scss') {
-        self.log.info('Updating theme information in ' + file);
+      if (file === 'sass/style.scss') {
+        self.log.info('Style.scss found! Updating theme information in ' + file);
         result = result.replace(/(Theme Name: )(.+)/g, '$1' + self.themeName);
         result = result.replace(/(Theme URI: )(.+)/g, '$1' + self.themeURI);
         result = result.replace(/(Author: )(.+)/g, '$1' + self.themeAuthor);
@@ -140,19 +140,7 @@ wpRhapsodyTheme.prototype.renameunderscores = function renameunderscores() {
   this.log.ok('Done replacing string ' + chalk.yellow('Rhapsody'));
 };
 
-
 wpRhapsodyTheme.prototype.app = function () {
   var currentDate = new Date();
   this.themeCreated = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-  this.mkdir('icons');
-  this.mkdir('fonts');
-  this.mkdir('acf-json');
-
-  this.copy('_gulpfile.js', 'Gulpfile.js');
-  this.copy('_package.json', 'package.json');
-  this.copy('_bower.json', 'bower.json');
-  this.copy('scss-lint.yml', '.scss-lint.yml');
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc');
-  this.copy('bowerrc', '.bowerrc');
 };
